@@ -7,8 +7,13 @@ namespace LinqConsoleApp
         static void Main(string[] args)
         {
             var d = new LinqSamples();
-            d.Przyklad1();
-            d.Przyklad2();
+            //d.Przyklad1();
+            //d.Przyklad2();
+            //d.Przyklad3();
+            //d.Przyklad4();
+            //d.Przyklad5();
+            //d.Przyklad6();
+            d.Przyklad7();
         }
     }
 }

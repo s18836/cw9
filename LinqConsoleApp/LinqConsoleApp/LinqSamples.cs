@@ -222,10 +222,12 @@ namespace LinqConsoleApp
 
             res.ForEach(emp=>
             {
-                Console.WriteLine(emp.Ename + " " + emp.Salary);
+                Console.WriteLine(emp);
             });
 
+
             Console.WriteLine();
+
 
             var res2 = (Emps.Where(emp => emp.Job == "Frontend programmer" && emp.Salary > 1000)
                 .OrderByDescending(emp => emp.Ename)
@@ -248,7 +250,11 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad3()
         {
-          
+
+            var max = Emps.Max(emp => emp.Salary);
+            Console.WriteLine(max);
+
+
         }
 
         /// <summary>
@@ -256,14 +262,46 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad4()
         {
+            var max = Emps.Max(emp => emp.Salary);
+            
+            var res = (Emps.Where(emp => emp.Salary == max)
+                 .Select(emp => new
+                 {
+                     emp.Ename,
+                     emp.Salary
+                 })).ToList();
+
+            res.ForEach(emp =>
+            {
+                Console.WriteLine(emp.Ename + " " + emp.Salary);
+            });
+
 
         }
+               
+            
+        
 
         /// <summary>
         /// SELECT ename AS Nazwisko, job AS Praca FROM Emps;
         /// </summary>
         public void Przyklad5()
         {
+
+            var res = (from emp in Emps
+                       select new
+                       {
+                           Nazwisko = emp.Ename,
+                           Praca = emp.Job
+                       }).ToList() ;
+
+            res.ForEach(emp =>
+            {
+                Console.WriteLine(emp.Nazwisko + " " + emp.Praca);
+            });
+
+
+
 
         }
 
@@ -275,6 +313,15 @@ namespace LinqConsoleApp
         public void Przyklad6()
         {
 
+            var join_res = Emps
+                .Join(Depts, emp => emp.Deptno, dept => dept.Deptno, (emp, dept) => new
+                {
+                    emp,
+                    dept
+                });
+
+           
+
         }
 
         /// <summary>
@@ -282,6 +329,26 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad7()
         {
+
+            
+
+
+
+
+            var res = (Emps.GroupBy(emp => emp.Job)
+                .Select(stanowisko => new
+                {
+                    Praca = stanowisko.Key,
+                    Ilosc = stanowisko.Count()
+                })).ToList();
+
+
+            res.ForEach(emp =>
+            {
+                Console.WriteLine(emp.Praca + " " + emp.Ilosc);
+            });
+
+
 
         }
 
