@@ -214,7 +214,32 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad2()
         {
-            
+
+            var res = (from emp in Emps
+                       where emp.Job == "Frontend programmer" && emp.Salary > 1000
+                       orderby emp.Ename descending
+                       select emp).ToList();
+
+            res.ForEach(emp=>
+            {
+                Console.WriteLine(emp.Ename + " " + emp.Salary);
+            });
+
+            Console.WriteLine();
+
+            var res2 = (Emps.Where(emp => emp.Job == "Frontend programmer" && emp.Salary > 1000)
+                //.OrderByDescending(emp => emp.Ename)
+                .Select(emp => new
+                {
+                    emp.Ename,
+                    emp.Salary
+                })).ToList();
+
+            res2.ForEach(emp =>
+            {
+                Console.WriteLine(emp.Ename + " " + emp.Salary);
+            });
+
 
         }
 
