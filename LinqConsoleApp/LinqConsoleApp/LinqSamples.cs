@@ -228,7 +228,7 @@ namespace LinqConsoleApp
             Console.WriteLine();
 
             var res2 = (Emps.Where(emp => emp.Job == "Frontend programmer" && emp.Salary > 1000)
-                //.OrderByDescending(emp => emp.Ename)
+                .OrderByDescending(emp => emp.Ename)
                 .Select(emp => new
                 {
                     emp.Ename,
